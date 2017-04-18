@@ -2,7 +2,7 @@ package linkedlist;
 
 /**
  *
- * @author Administrator
+ * @author Jeremiah E. Zellers
  */
 public class LinkedList {
 
@@ -30,10 +30,10 @@ public class LinkedList {
         return temp;
     }
 
-    public Link find(int key) {
+    public Link find(double key) {
         //how to find things in our list
         Link current = first;
-        while (current.index != key) {
+        while (current.data != key) {
             if (current.next == null) {
                 return null;
             } else {
@@ -43,21 +43,25 @@ public class LinkedList {
         return current;
     }
 
-    public Link delete(int key) {
+    public Link delete(int index) {
         Link current = first;
         Link previous = first;
-        while (current.index != key) {
-            if (current.next == null) {
-                return null;
-            } else {
-                previous = current;
-                current = current.next;
+        if (!isEmpty()) {
+            int count = 0;
+            while (count != index) {
+                if (current.next == null) {
+                    return null;
+                } else {
+                    previous = current;
+                    current = current.next;
+                }
+                count++;
             }
-        }
-        if (current == first) {
-            first = first.next;
-        } else {
-            previous.next = current.next;
+            if (current == first) {
+                first = first.next;
+            } else {
+                previous.next = current.next;
+            }
         }
         return current;
     }
@@ -74,19 +78,34 @@ public class LinkedList {
         }
         return sb.toString();
     }
-    
+
     public static void main(String[] args) {
         LinkedList list = new LinkedList();
         list.insertFirst(1, 25.1);
         list.insertFirst(2, 39.2);
         list.insertFirst(3, 10.3);
-
+        System.out.println("The list of double values is\n" + list);
+//----------------------------Find Section Main---------------------------------
+        System.out.println("Math for item 39.2 is: " + list.find(39.2));
+        System.out.println("Math for item 25.1 is: " + list.find(25.1));
+        System.out.println("Math for item 10.3 is: " + list.find(10.3));
+        System.out.println("Math for item 0 is: " + list.find(0));
+        System.out.println("\n");
         
-        System.out.println(list.toString()); 
-        System.out.println("Match for item 2: " + list.find(2)); 
-        System.out.println("match for item 4: " + list.find(4)); // should be null
-        list.delete(2);
-        System.out.println(list.toString()); // object at index 2 is now deleted
+//---------------------------Delete Section Main-------------------------------        
+
+        if (list.delete(0) != null) {
+            System.out.println("Item deleted. New list is: " + "\n" + list);
+        } else {
+            System.out.println("Null value on delete");
+        }
+
+        if (list.delete(1) != null) {
+            System.out.println("Item deleted. New list is: " + "\n" + list);
+        } else {
+            System.out.println("Null value on delete");
+        }
+
     }
 
 }
