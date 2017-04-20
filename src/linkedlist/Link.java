@@ -7,17 +7,17 @@ package linkedlist;
  */
 public class Link {
 
-    public double data; //can replace this with any kind of object
+    public Friend data; //can replace this with any kind of object
     public Link next;  //Another linked object
 
-    public Link(int index, double data) {
+    public Link(Friend data) {
 
         this.data = data;
         this.next = null;
     }
 
     public String toString() {
-        return "" + data;
+        return  data.toString();
     }
 
 }

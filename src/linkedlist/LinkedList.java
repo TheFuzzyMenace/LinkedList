@@ -7,9 +7,13 @@ package linkedlist;
 public class LinkedList {
 
     private Link first;
+    private Link last;
+    public int length;
 
     public LinkedList() {
-        this.first = null; //no first link created yet is why null (nothing in list yet)
+        first = null; //no first link created yet is why null (nothing in list yet)
+        last = null;
+        length = 0;
     }
 
     public boolean isEmpty() {
@@ -17,28 +21,36 @@ public class LinkedList {
         return (first == null); //looks at link named first. if it's null.. returns "true"
     }
 
-    public void push(int index, double data) { //pushe element onto the top of list. Insert first
-        Link newLink = new Link(index, data); //creates this new link.. and then the next link becomes null
+    public void push( Friend data) { //pushe element onto the top of list. Insert first
+        Link newLink = new Link(data); //creates this new link.. and then the next link becomes null
         newLink.next = first;
         first = newLink;
         //give it index (int index) and data (our object or data) we want to insert first
+        length++; //because our list gets bigger. Keeps track of size.
     }
 
     public Link pop() {       //delete first element in list
-        Link temp = first;
-        first = first.next;
-        return temp;
+        if (length > 0) {
+            Link temp = first;
+            first = first.next;
+            length--; // because our list gets smaller. Keeps track of size
+            return temp;
+        }
+        return null;
     }
 
     public Link peek() {       //shows you first element in list
-
         return first;
     }
 
-    public Link find(double key) {
+    public Link remove() { //removes item from end of Linked List.
+        return null;
+    }
+
+    public Link find(String key) {
         //how to find things in our list
         Link current = first;
-        while (current.data != key) {
+        while (current.data.getName() != key) {
             if (current.next == null) {
                 return null;
             } else {
@@ -67,6 +79,7 @@ public class LinkedList {
             } else {
                 previous.next = current.next;
             }
+            length--;
         }
         return current;
     }
@@ -86,17 +99,16 @@ public class LinkedList {
 
     public static void main(String[] args) {
         LinkedList list = new LinkedList();
-        list.push(1, 25.1);
-        list.push(2, 39.2);
-        list.push(3, 10.3);
-        list.push(4, 2.5);
-        list.push(5, 23.2);
+  
+        list.push(new Friend("Person", 1));
+        list.push(new Friend("Person2", 2));
+ 
         System.out.println("The list of double values is\n" + list);
+        System.out.println("The length of the list is: " + list.length + "\n");
 //----------------------------Find Section Main---------------------------------
-        System.out.println("Math for item 39.2 is: " + list.find(39.2));
-        System.out.println("Math for item 25.1 is: " + list.find(25.1));
-        System.out.println("Math for item 10.3 is: " + list.find(10.3));
-        System.out.println("Math for item 0 is: " + list.find(0));
+        System.out.println("Math for item 39.2 is: " + list.find("Person"));
+        System.out.println("Math for item 25.1 is: " + list.find("Person 2"));
+
         System.out.println("\n");
 
 //----------------------------Pop Section Main---------------------------------
